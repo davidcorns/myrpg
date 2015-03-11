@@ -3,17 +3,6 @@ function RestfulServer() {
 };
 
 
-RestfulServer.instance = null;
-
-
-//singleton
-RestfulServer.getInstance = function() {
-	if(RestfulServer.instance == null) {
-		RestfulServer.instance = new RestfulServer();
-	}
-
-	return RestfulServer.instance;
-}
 
 
 RestfulServer.prototype.init = function(url) {
@@ -35,7 +24,7 @@ RestfulServer.prototype.send = function(path, callback) {
 		
 		var json = JSON.parse(xmlhttp.responseText);
 		callback(json);	
-		}
+	};
 
 }
 

@@ -1,24 +1,8 @@
 function WebsocketServer() {
-
-	var commands = [];
-
-
+	this.commands = [];
+}	//end WebsocketServer
 
 
-}	//end Server
-
-
-WebsocketServer.instance = null;
-
-
-//singleton
-WebsocketServer.getInstance = function() {
-	if(WebsocketServer.instance == null) {
-		WebsocketServer.instance = new WebsocketServer();
-	}
-
-	return WebsocketServer.instance;
-}
 
 
 WebsocketServer.prototype.init = function(url, onopen) {
@@ -26,9 +10,19 @@ WebsocketServer.prototype.init = function(url, onopen) {
 	var conn = new WebSocket(this.url);
 
 	conn.onopen = onopen;
+	var commands = this.commands;
 
 	conn.onmessage = function(e) {
-		
+		var msg = e.data;
+		var i = msg.indexOf(' ');
+		var cmd = msg.substr(0, i);
+		if(commands.hasOwnProperty(cmd)) {
+			var data = msg.substr(i+1);
+			console.log('recieved command: ' + cmd + ': ' + data);
+			commands[cmd](data);
+		} else {
+			console.log('unkown command: ' + cmd);
+		}
 	}
 
 	this.conn = conn;
@@ -41,7 +35,7 @@ WebsocketServer.prototype.send = function(msg) {
 
 
 WebsocketServer.prototype.on = function(cmdStr, cmdFunc) {
-	commands[cmdStr] = cmdFunc;	
+	this.commands[cmdStr] = cmdFunc;	
 }
 
 

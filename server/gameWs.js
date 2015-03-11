@@ -11,10 +11,8 @@ createServer: function(game) {
 		log.debug('new websocket connection: %s', conn);
 
 		conn.on('text', function (str) {
-			log.debug('websocket received: %s', str)
-			for(var i=0; i<10000; i++) {
-				conn.sendText(str.toUpperCase()+': ' + i);
-			}
+			log.debug('websocket received: %s', str);
+			conn.sendText('login hello world');
 		});
 
 		conn.on('close', function (code, reason) {
