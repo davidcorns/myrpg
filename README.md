@@ -1,6 +1,7 @@
 # myrpg
 
 installation:
+
 1. install nodejs and npm
 2. clone this repository
 3. in the project directory, run comand:
