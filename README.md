@@ -1,6 +1,6 @@
 # myrpg
 
-installation:
+Installation:
 
 1. install nodejs and npm
 2. clone this repository
@@ -11,3 +11,11 @@ installation:
     nodejs main.js
 6. opne the client at browser, url: http://localhost:8080
 7. use w, a, s, d to move the player!
+
+--------------------------------------------------------------------
+Design:
+
+Client       Server(Presentation Servers <--------------------------> Game Logic <-------> Database)
+        <--         |- http: for static contents
+        <--         |- restful: for resources delivering
+        <-->        |- websocket: for realtime game communication
