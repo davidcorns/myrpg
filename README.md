@@ -13,9 +13,13 @@ Installation:
 7. use w, a, s, d to move the player!
 
 --------------------------------------------------------------------
+
 Design:
 
 Client       Server(Presentation Servers <--------------------------> Game Logic <-------> Database)
+
         <--         |- http: for static contents
+        
         <--         |- restful: for resources delivering
+        
         <-->        |- websocket: for realtime game communication
