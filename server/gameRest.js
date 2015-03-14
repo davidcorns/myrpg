@@ -9,18 +9,28 @@ var log = mylog.getLogger(__filename);
 //------------------------------------------------------------
 
 /*	Create and configure server	*/
-var app = express();
 var allowCrossDomain = require('./allowCrossDomain.js');
+
+var app = express();
 app.use(allowCrossDomain);
-
-
-
-app.get('/config', function(request, response) {
-	var url = 'ws://localhost:8082';
-	var canvas = {w: 800, h: 600};
-	response.send({"websocket_url": url, "canvas": canvas});
+app.use(function(req, res, next) {
+	log.debug('%s accessed', req.url);
+	next(); 
 });
 
+
+
+
+
+app.get('/config/canvas', function(request, response) {
+	var canvas = {w: 800, h: 600};
+	response.send(canvas);
+});
+
+app.get('/config/websocket', function(request, response) {
+	var url = 'ws://localhost:8082';
+	response.send({"url": url});
+});
 
 /*
 app.get( '/resources/sprite', function( request, response ) {
@@ -43,8 +53,7 @@ app.get( '/resources/sprite', function( request, response ) {
 });
 */
 app.get( '/resources/sprite', function( request, response ) {
-	//var host = request.get('host');
-	//host = resolveLocal(host) + '/resources/sprite/';
+	//var host = 'http://' + request.get('host') + '/';
 	var host = 'resources/sprite/';
 
 	//mock result

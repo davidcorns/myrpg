@@ -18,7 +18,7 @@ WebsocketServer.prototype.init = function(url, onopen) {
 		var cmd = msg.substr(0, i);
 		if(commands.hasOwnProperty(cmd)) {
 			var data = msg.substr(i+1);
-			console.log('recieved command: ' + cmd + ': ' + data);
+			//console.log('recieved command: ' + cmd + ': ' + data);
 			commands[cmd](data);
 		} else {
 			console.log('unkown command: ' + cmd);
